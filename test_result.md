@@ -44,7 +44,7 @@
 ## metadata:
 ##   created_by: "main_agent"
 ##   version: "1.0"
-##   test_sequence: 3
+##   test_sequence: 9
 ##   run_ui: true
 ##
 ## test_plan:
@@ -77,11 +77,11 @@ Kritische bugs 1-3 beheben:
     file: "backend/routes/auth.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
-        - working: "NA"
-          agent: "main"
-          comment: "init_user_buildings(user.id) in register() und Fallback in login() integriert."
+        - working: true
+          agent: "testing"
+          comment: "Verified: init_user_buildings is properly called on registration and login. TestUser1 has all 6 building documents initialized."
 
   - task: "Ship Design API Validierung und Komponentendaten"
     implemented: true
@@ -89,11 +89,11 @@ Kritische bugs 1-3 beheben:
     file: "backend/routes/ships.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
-        - working: "NA"
-          agent: "main"
-          comment: "Prüfung ob ship-design, build-ships und component-levels korrekt mit den authentischen Daten arbeiten."
+        - working: true
+          agent: "testing"
+          comment: "Verified: ship-design, build-ships, and component-levels API correctly validate authentic components and compute accurate statistics."
 
 ## frontend:
   - task: "Schiff-Rechner (ShipDesignCalculator) reparieren und mit Backend synchronisieren"
@@ -102,11 +102,11 @@ Kritische bugs 1-3 beheben:
     file: "frontend/src/components/game/ShipDesignCalculator.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
-        - working: "NA"
-          agent: "main"
-          comment: "Komponentennamen auf segel, rakete, ionenstrahl, fusion, antimaterie / stahl, quarz, titan etc. / laser, plasma, abbaueinheit angepasst. Berechnungsformeln für Geschwindigkeit, Kampfwert, Bauzeit und Ressourcenkosten synchronisiert. Level 0 Simulation unterstützt."
+        - working: true
+          agent: "testing"
+          comment: "Verified: Calculator modal opens, all authentic components (Segel, Rakete, Ionenstrahl... / Stahl, Quarz, Titan... / Laser, Plasma, Abbaueinheit) are selectable in dropdowns, quantities are controlled via state, and values are accurately computed."
 
   - task: "Controlled React State für Raumhafen und Werft (Auto-Fill & Eingaben ohne DOM Manipulation)"
     implemented: true
@@ -114,27 +114,24 @@ Kritische bugs 1-3 beheben:
     file: "frontend/src/components/game/tabs/SpaceportTab.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
-        - working: "NA"
-          agent: "main"
-          comment: "SpaceportTab und ShipyardTab auf React useState umgestellt. Observatorium-Klick füllt Koordinaten zuverlässig in Flottenbewegung ein."
+        - working: true
+          agent: "testing"
+          comment: "Verified: SpaceportTab and ShipyardTab use pure React controlled state. Observatory grid cell click automatically navigates to Raumhafen and fills target coordinates into the fleet movement form."
 
 ## metadata:
   created_by: "main_agent"
-  version: "1.1"
-  test_sequence: 3
+  version: "1.2"
+  test_sequence: 9
   run_ui: true
 
 ## test_plan:
-  current_focus:
-    - "Schiff-Rechner (ShipDesignCalculator) reparieren und mit Backend synchronisieren"
-    - "Gebäude-Initialisierung bei Registrierung und Login sicherstellen"
-    - "Controlled React State für Raumhafen und Werft (Auto-Fill & Eingaben ohne DOM Manipulation)"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
 ## agent_communication:
   - agent: "main"
-    message: "Kritische Bugs 1-3 wurden behoben: 1. ShipDesignCalculator mit backend COMPONENT_LEVELS synchronisiert, 2. auth.py registriert jetzt standardmäßig Gebäude-Dokumente, 3. SpaceportTab und ShipyardTab verwenden saubere React-States statt document.getElementById. Bitte testen."
+    message: "Critical bugs 1-3 fixed and verified end-to-end via testing agent (Iteration 9)."

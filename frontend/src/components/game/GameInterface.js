@@ -25,23 +25,6 @@ const GameInterface = () => {
   const [targetCoordinates, setTargetCoordinates] = useState(null);
   const [showShipCalculator, setShowShipCalculator] = useState(false);
 
-  useEffect(() => {
-    if (targetCoordinates && activeTab === 'raumhafen') {
-      setTimeout(() => {
-        game.userFleets.forEach(fleet => {
-          if (!fleet.movement_end_time) {
-            const xInput = document.getElementById(`fleet-${fleet.id}-x`);
-            const yInput = document.getElementById(`fleet-${fleet.id}-y`);
-            if (xInput && yInput) {
-              xInput.value = targetCoordinates.x;
-              yInput.value = targetCoordinates.y;
-            }
-          }
-        });
-      }, 100);
-    }
-  }, [targetCoordinates, activeTab, game.userFleets]);
-
   const handleFieldClick = (x, y) => {
     setActiveTab('raumhafen');
     setTargetCoordinates({ x, y });

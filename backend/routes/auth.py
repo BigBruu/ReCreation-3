@@ -7,6 +7,7 @@ from auth_deps import get_current_user
 from database import db
 from models import InviteCode, Token, User, UserCreateWithInvite, UserLogin
 from security import create_access_token, decode_token, pwd_context, security
+from services.buildings import init_user_buildings
 from services.config_cache import get_game_config
 from services.research import init_user_research
 from services.spaceport import assign_spaceport_to_user
@@ -49,6 +50,7 @@ async def register(user_data: UserCreateWithInvite):
     )
 
     await init_user_research(user.id)
+    await init_user_buildings(user.id)
     await assign_spaceport_to_user(db, user.id, user.username)
 
     access_token = create_access_token(
@@ -67,6 +69,10 @@ async def login(user_data: UserLogin):
     if user["spaceport_position"]["x"] == -1:
         await assign_spaceport_to_user(db, user["id"], user["username"])
     await init_user_research(user["id"])
+    
+    user_buildings = await db.user_buildings.find_one({"user_id": user["id"]})
+    if not user_buildings:
+        await init_user_buildings(user["id"])
 
     access_token = create_access_token(
         data={"sub": user["username"]},

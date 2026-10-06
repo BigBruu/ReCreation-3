@@ -56,6 +56,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "expo": "PORT=3000 craco start",
     "build": "craco build",
     "test": "craco test"
   },

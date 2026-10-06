@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.560" timestamp="2026-10-06T10:32:26.004385+00:00" hostname="agent-env-fa9889aa-f4d3-4974-891f-664a656688b0"><testcase classname="backend.tests.test_critical_flows" name="test_admin_invite_and_components" time="0.378" /><testcase classname="backend.tests.test_critical_flows" name="test_test_user_login_and_initial_state" time="0.059"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">backend/tests/test_critical_flows.py:20: in test_test_user_login_and_initial_state
+    r=session.post(BASE+'/api/auth/login',json={'username':'TestUser1','password':'password123'}); assert r.status_code==200
+                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   assert 404 == 200
+E    +  where 404 = &lt;Response [404]&gt;.status_code</failure></testcase><testcase classname="backend.tests.test_critical_flows" name="test_ship_design_validation_and_formula" time="0.061"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">backend/tests/test_critical_flows.py:28: in test_ship_design_validation_and_formula
+    r=session.post(BASE+'/api/auth/login',json={'username':'TestUser1','password':'password123'}); assert r.status_code==200
+                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   assert 404 == 200
+E    +  where 404 = &lt;Response [404]&gt;.status_code</failure></testcase></testsuite></testsuites>

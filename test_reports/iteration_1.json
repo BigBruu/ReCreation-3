@@ -1,0 +1,27 @@
+{
+  "summary": "Ran authenticated API regression checks and mobile web smoke test. Admin login, invite creation, and component-level API passed; seeded player login failed with 404. Public preview rendered Invalid Host header, so UI flows could not be exercised.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "/api/auth/login", "issue": "Required credentials TestUser1/password123 return HTTP 404 (user is not present or login route masks missing user). This blocks buildings, research, shipyard and spaceport verification.", "priority": "HIGH"}
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Public Expo web preview loading", "issue": "https://code-review-tool-44.preview.emergentagent.com/ displays 'Invalid Host header'; no login or game UI is reachable.", "affected_testIDs": []}
+    ],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_critical_flows.py", "/app/test_reports/pytest/critical.xml", "/app/test_reports/ui/home.png"],
+  "action_items": ["Seed or restore TestUser1 with password123, or provide a valid test account, then rerun all authenticated flows.", "Fix preview host configuration so the configured public URL is accepted by the frontend dev server; rerun mobile UI tests."],
+  "critical_code_review_comments": ["Auth initialization code is present for registration/login fallback, but it cannot be validated until a usable player account exists.", "Ship calculator frontend formulas visibly mirror backend services/ships.py for the tested default values; full save validation was blocked by player login."],
+  "updated_files": ["/app/backend/tests/test_critical_flows.py", "/app/test_reports/iteration_1.json"],
+  "success_rate": {"backend": "33%", "frontend": "0%"},
+  "seed_data_creation": "Created one unused admin invite code during API testing; no player data was created.",
+  "retest_needed": true,
+  "should_call_test_agent_after_fix": true,
+  "context_for_next_testing_agent": "Admin password from memory/test_credentials.md worked. Public preview URL returned Invalid Host header. TestUser1 login returned 404 twice. Backend test uses REACT_APP_BACKEND_URL because frontend/.env lacks EXPO_BACKEND_URL.",
+  "rca_of_issue": "The authenticated test chain stops at POST /api/auth/login for TestUser1 with HTTP 404, indicating the documented seeded account is missing (or the backend deliberately returns not-found for unknown users). The UI cannot be tested independently because the reverse-proxied frontend rejects the public Host header before serving the app."
+}

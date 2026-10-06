@@ -16,6 +16,7 @@ router = APIRouter(tags=["auth"])
 
 
 @router.post("/register", response_model=Token)
+@router.post("/auth/register", response_model=Token)
 async def register(user_data: UserCreateWithInvite):
     invite_code_doc = await db.invite_codes.find_one({"code": user_data.invite_code})
     if not invite_code_doc:
@@ -61,6 +62,7 @@ async def register(user_data: UserCreateWithInvite):
 
 
 @router.post("/login", response_model=Token)
+@router.post("/auth/login", response_model=Token)
 async def login(user_data: UserLogin):
     user = await db.users.find_one({"username": user_data.username})
     if not user or not pwd_context.verify(user_data.password, user["password_hash"]):

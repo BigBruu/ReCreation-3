@@ -7,6 +7,13 @@ const config = {
 };
 
 module.exports = {
+  devServer: (devServerConfig) => {
+    devServerConfig.allowedHosts = 'all';
+    devServerConfig.headers = {
+      'Access-Control-Allow-Origin': '*',
+    };
+    return devServerConfig;
+  },
   webpack: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

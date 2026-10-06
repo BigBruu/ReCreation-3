@@ -36,7 +36,7 @@ const ShipyardTab = ({ shipDesigns = [], userPlanets = [], onShowCalculator, onB
   };
 
   return (
-    <div className="werft-content" testID="shipyard-tab-container">
+    <div className="werft-content" testID="shipyard-tab-container" data-testid="shipyard-tab-container">
       <div className="werft-header flex justify-between items-center mb-6">
         <div>
           <h3 className="text-xl font-bold text-blue-400">Werft — Raumschiff-Prototypen</h3>
@@ -44,7 +44,7 @@ const ShipyardTab = ({ shipDesigns = [], userPlanets = [], onShowCalculator, onB
             Hier können Sie Prototypen entwerfen und Schiffe im Raumhafen produzieren.
           </p>
         </div>
-        <button onClick={onShowCalculator} className="btn-primary" testID="open-calculator-btn">
+        <button onClick={onShowCalculator} className="btn-primary" testID="open-calculator-btn" data-testid="open-calculator-btn">
           Rechner — Prototypen entwerfen
         </button>
       </div>
@@ -57,7 +57,7 @@ const ShipyardTab = ({ shipDesigns = [], userPlanets = [], onShowCalculator, onB
         {shipDesigns.length === 0 ? (
           <div className="bg-gray-800 p-6 rounded border border-gray-700 text-center text-gray-400">
             <p className="mb-3">Sie haben noch keine Schiff-Prototypen entworfen.</p>
-            <button onClick={onShowCalculator} className="btn-primary text-sm">
+            <button onClick={onShowCalculator} className="btn-primary text-sm" data-testid="empty-create-prototype-btn">
               Ersten Prototyp erstellen
             </button>
           </div>
@@ -67,7 +67,7 @@ const ShipyardTab = ({ shipDesigns = [], userPlanets = [], onShowCalculator, onB
             const currentQty = buildQuantities[design.id] ?? 1;
 
             return (
-              <div key={design.id} className="prototype-card bg-gray-800 p-4 rounded border border-gray-700" testID={`prototype-card-${design.id}`}>
+              <div key={design.id} className="prototype-card bg-gray-800 p-4 rounded border border-gray-700" testID={`prototype-card-${design.id}`} data-testid={`prototype-card-${design.id}`}>
                 <div className="flex justify-between items-start mb-2">
                   <h5 className="text-lg font-bold text-white">{design.name}</h5>
                   <span className="text-xs bg-blue-900 text-blue-300 px-2 py-1 rounded font-mono">
@@ -91,7 +91,6 @@ const ShipyardTab = ({ shipDesigns = [], userPlanets = [], onShowCalculator, onB
                   </div>
                 </div>
 
-                {/* Production Form */}
                 <div className="production-section mt-4 pt-4 border-t border-gray-700">
                   <h6 className="text-sm font-semibold text-blue-400 mb-2">Schiffe produzieren:</h6>
                   <div className="production-controls">
@@ -104,6 +103,7 @@ const ShipyardTab = ({ shipDesigns = [], userPlanets = [], onShowCalculator, onB
                           }
                           className="production-select px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white text-sm"
                           testID={`planet-select-${design.id}`}
+                          data-testid={`planet-select-${design.id}`}
                         >
                           {userPlanets.map((planet) => (
                             <option key={planet.id} value={planet.id}>
@@ -125,11 +125,13 @@ const ShipyardTab = ({ shipDesigns = [], userPlanets = [], onShowCalculator, onB
                           }
                           className="production-input px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white text-sm w-24 text-center"
                           testID={`build-quantity-input-${design.id}`}
+                          data-testid={`build-quantity-input-${design.id}`}
                         />
                         <button
                           onClick={() => handleBuild(design.id)}
                           className="btn-success production-btn px-4 py-2 text-sm"
                           testID={`build-ship-btn-${design.id}`}
+                          data-testid={`build-ship-btn-${design.id}`}
                         >
                           Im Raumhafen bauen
                         </button>

@@ -16,14 +16,10 @@ const SpaceportTab = ({
 }) => {
   const { toast } = useToast();
 
-  // Controlled states for fleet creation
   const [fleetNames, setFleetNames] = useState({});
   const [selectedQuantities, setSelectedQuantities] = useState({});
-
-  // Controlled states for fleet movement
   const [fleetCoords, setFleetCoords] = useState({});
 
-  // Auto-fill coordinates from Observatory click
   useEffect(() => {
     if (targetCoordinates && targetCoordinates.x !== undefined && targetCoordinates.y !== undefined) {
       const updated = {};
@@ -77,7 +73,6 @@ const SpaceportTab = ({
     }
 
     onCreateFleet(planetData.planet_id, fleetName, ships);
-    // Reset inputs for this planet
     setFleetNames((prev) => ({ ...prev, [planetData.planet_id]: '' }));
     setSelectedQuantities((prev) => {
       const updated = { ...prev };
@@ -117,10 +112,9 @@ const SpaceportTab = ({
   };
 
   return (
-    <div className="spaceport-content" testID="spaceport-tab-container">
+    <div className="spaceport-content" testID="spaceport-tab-container" data-testid="spaceport-tab-container">
       <h3 className="text-xl font-bold text-blue-400 mb-4">🚀 Raumhafen — Schiffe & Flotten</h3>
 
-      {/* Ships in Spaceport */}
       <div className="spaceport-ships">
         <h4 className="text-lg font-semibold text-white mb-3">Schiffe im Raumhafen</h4>
         {Object.keys(spaceportShips).length > 0 ? (
@@ -141,7 +135,6 @@ const SpaceportTab = ({
                 ))}
               </div>
 
-              {/* Fleet Creation Form */}
               <div className="fleet-creation mt-4 pt-4 border-t border-gray-700">
                 <h6 className="text-sm font-semibold text-green-400 mb-2">Neue Flotte zusammenstellen:</h6>
                 <input
@@ -151,6 +144,7 @@ const SpaceportTab = ({
                   onChange={(e) => handleFleetNameChange(planetData.planet_id, e.target.value)}
                   className="w-full px-3 py-2 mb-3 bg-gray-700 border border-gray-600 rounded text-white text-sm"
                   testID={`fleet-name-input-${planetData.planet_id}`}
+                  data-testid={`fleet-name-input-${planetData.planet_id}`}
                 />
                 <div className="ship-selection space-y-2 mb-3">
                   {planetData.ships.map((ship) => (
@@ -165,6 +159,7 @@ const SpaceportTab = ({
                           onChange={(e) => handleShipQuantityChange(ship.id, e.target.value, ship.quantity)}
                           className="px-2 py-1 bg-gray-700 border border-gray-600 rounded text-white w-20 text-center text-sm"
                           testID={`ship-qty-input-${ship.id}`}
+                          data-testid={`ship-qty-input-${ship.id}`}
                         />
                         <span className="text-gray-400 text-xs">/ {ship.quantity}</span>
                       </div>
@@ -175,6 +170,7 @@ const SpaceportTab = ({
                   onClick={() => handleCreateFleetSubmit(planetData)}
                   className="btn-primary w-full py-2 text-sm"
                   testID={`create-fleet-btn-${planetData.planet_id}`}
+                  data-testid={`create-fleet-btn-${planetData.planet_id}`}
                 >
                   Flotte erstellen
                 </button>
@@ -188,7 +184,6 @@ const SpaceportTab = ({
         )}
       </div>
 
-      {/* Active Fleets */}
       <div className="active-fleets mt-6">
         <h4 className="text-lg font-semibold text-white mb-3">Aktive Flotten ({userFleets.length})</h4>
         {userFleets.length === 0 ? (
@@ -203,6 +198,7 @@ const SpaceportTab = ({
                 key={fleet.id}
                 className={`fleet-card ${fleet.stance === 'aggressive' ? 'fleet-aggressive' : 'fleet-defensive'}`}
                 testID={`fleet-card-${fleet.id}`}
+                data-testid={`fleet-card-${fleet.id}`}
               >
                 <div className="flex justify-between items-start mb-2">
                   <h5 className="font-bold text-white text-base">
@@ -221,6 +217,7 @@ const SpaceportTab = ({
                     onChange={(e) => onSetFleetStance(fleet.id, e.target.value)}
                     className={`stance-select ${fleet.stance === 'aggressive' ? 'stance-aggressive' : 'stance-defensive'}`}
                     testID={`fleet-stance-select-${fleet.id}`}
+                    data-testid={`fleet-stance-select-${fleet.id}`}
                   >
                     <option value="defensive">🛡️ Defensiv</option>
                     <option value="aggressive">⚔️ Aggressiv</option>
@@ -260,6 +257,7 @@ const SpaceportTab = ({
                         onChange={(e) => handleCoordChange(fleet.id, 'x', e.target.value)}
                         className="coordinate-input px-2 py-1 bg-gray-700 border border-gray-600 rounded text-white w-16 text-center text-sm"
                         testID={`fleet-${fleet.id}-x`}
+                        data-testid={`fleet-${fleet.id}-x`}
                       />
                       <span className="text-gray-400 font-bold">:</span>
                       <input
@@ -271,11 +269,13 @@ const SpaceportTab = ({
                         onChange={(e) => handleCoordChange(fleet.id, 'y', e.target.value)}
                         className="coordinate-input px-2 py-1 bg-gray-700 border border-gray-600 rounded text-white w-16 text-center text-sm"
                         testID={`fleet-${fleet.id}-y`}
+                        data-testid={`fleet-${fleet.id}-y`}
                       />
                       <button
                         onClick={() => handleMoveFleetSubmit(fleet.id)}
                         className="btn-primary px-4 py-1 text-sm"
                         testID={`move-fleet-btn-${fleet.id}`}
+                        data-testid={`move-fleet-btn-${fleet.id}`}
                       >
                         Bewegen
                       </button>
@@ -288,7 +288,6 @@ const SpaceportTab = ({
         )}
       </div>
 
-      {/* Battle Reports */}
       {battleReports.length > 0 && (
         <div className="battle-reports-section mt-6 pt-6 border-t border-gray-700">
           <h4 className="text-xl font-bold text-red-400 mb-4">⚔️ Kampfberichte ({battleReports.length})</h4>
@@ -335,7 +334,6 @@ const SpaceportTab = ({
         </div>
       )}
 
-      {/* Debris Fields */}
       {debrisFields.length > 0 && (
         <div className="debris-section mt-6 pt-6 border-t border-gray-700">
           <h4 className="text-xl font-bold text-yellow-400 mb-4">💥 Trümmerfelder ({debrisFields.length})</h4>
@@ -364,6 +362,7 @@ const SpaceportTab = ({
                       onClick={() => onCollectDebris(debris.id)}
                       className="btn-success collect-btn mt-2"
                       testID={`collect-debris-btn-${debris.id}`}
+                      data-testid={`collect-debris-btn-${debris.id}`}
                     >
                       Sammeln
                     </button>

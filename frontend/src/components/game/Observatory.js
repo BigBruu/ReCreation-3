@@ -97,6 +97,8 @@ const Observatory = ({
         title={`(${x}:${y}) ${planet ? planet.name : 'Leerer Raum'}${
           fleets.length ? ` - ${fleets.length} Flotte(n)` : ''
         }`}
+        testID={`obs-cell-${x}-${y}`}
+        data-testid={`obs-cell-${x}-${y}`}
       >
         <div className="obs-coord">{x}:{y}</div>
 
@@ -127,7 +129,7 @@ const Observatory = ({
   };
 
   return (
-    <div className="observatory-container">
+    <div className="observatory-container" testID="observatory-container" data-testid="observatory-container">
       <div className="observatory-header">
         <h3>Observatorium</h3>
         <div className="observatory-controls">
@@ -144,6 +146,8 @@ const Observatory = ({
               }}
               value=""
               className="fleet-select"
+              testID="jump-to-fleet-select"
+              data-testid="jump-to-fleet-select"
             >
               <option value="">Flotte wählen...</option>
               {userFleets.map((fleet) => (
@@ -162,6 +166,8 @@ const Observatory = ({
                 }
               }}
               className="btn-secondary spaceport-btn"
+              testID="jump-to-spaceport-btn"
+              data-testid="jump-to-spaceport-btn"
             >
               🚀 Raumhafen
             </button>

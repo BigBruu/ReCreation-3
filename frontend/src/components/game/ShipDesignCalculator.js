@@ -70,7 +70,6 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
     weapon_quantity: 1,
   });
 
-  // When component type changes, update level based on research (or default to 1 for calculation simulation)
   useEffect(() => {
     const driveRes = getResearchedLevel('drives', design.drive_type);
     const shieldRes = getResearchedLevel('shields', design.shield_type);
@@ -84,7 +83,6 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
     }));
   }, [design.drive_type, design.shield_type, design.weapon_type, userResearch]);
 
-  // Retrieve metadata
   const drivesCatalog = componentLevels?.drives || COMPONENT_DEFAULTS.drives;
   const shieldsCatalog = componentLevels?.shields || COMPONENT_DEFAULTS.shields;
   const weaponsCatalog = componentLevels?.weapons || COMPONENT_DEFAULTS.weapons;
@@ -93,7 +91,6 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
   const shieldData = shieldsCatalog[design.shield_type] || COMPONENT_DEFAULTS.shields.stahl;
   const weaponData = weaponsCatalog[design.weapon_type] || COMPONENT_DEFAULTS.weapons.laser;
 
-  // Calculate stats matching backend formula exactly (backend/services/ships.py)
   const driveWeight = (driveData.weight || 20) * (design.drive_quantity || 1);
   const shieldWeight = (shieldData.weight || 2) * (design.shield_quantity || 1);
   const weaponWeight = (weaponData.weight || 60) * (design.weapon_quantity || 1);
@@ -148,7 +145,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
 
   return (
     <div className="modal-backdrop" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="ship-calculator" testID="ship-design-calculator-modal">
+      <div className="ship-calculator" testID="ship-design-calculator-modal" data-testid="ship-design-calculator-modal">
         <div className="calculator-header">
           <div>
             <h3 className="text-xl font-bold text-blue-400">Rechner — Prototypen entwerfen</h3>
@@ -156,7 +153,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
               Bei noch nicht erforschten Technologien (L0) wird bei der Kostenberechnung Level 1 angenommen.
             </p>
           </div>
-          <button onClick={onClose} className="close-btn" testID="close-calculator-btn">
+          <button onClick={onClose} className="close-btn" testID="close-calculator-btn" data-testid="close-calculator-btn">
             ×
           </button>
         </div>
@@ -172,6 +169,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
                 placeholder="z.B. Raider Mk1"
                 className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded text-white text-sm"
                 testID="prototype-name-input"
+                data-testid="prototype-name-input"
               />
             </div>
 
@@ -186,6 +184,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
                     onChange={(e) => setDesign({ ...design, drive_type: e.target.value })}
                     className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm"
                     testID="drive-type-select"
+                    data-testid="drive-type-select"
                   >
                     {Object.keys(drivesCatalog).map((key) => {
                       const resLevel = getResearchedLevel('drives', key);
@@ -219,6 +218,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
                     }
                     className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm text-center"
                     testID="drive-quantity-input"
+                    data-testid="drive-quantity-input"
                   />
                 </div>
               </div>
@@ -235,6 +235,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
                     onChange={(e) => setDesign({ ...design, shield_type: e.target.value })}
                     className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm"
                     testID="shield-type-select"
+                    data-testid="shield-type-select"
                   >
                     {Object.keys(shieldsCatalog).map((key) => {
                       const resLevel = getResearchedLevel('shields', key);
@@ -268,6 +269,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
                     }
                     className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm text-center"
                     testID="shield-quantity-input"
+                    data-testid="shield-quantity-input"
                   />
                 </div>
               </div>
@@ -284,6 +286,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
                     onChange={(e) => setDesign({ ...design, weapon_type: e.target.value })}
                     className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm"
                     testID="weapon-type-select"
+                    data-testid="weapon-type-select"
                   >
                     {Object.keys(weaponsCatalog).map((key) => {
                       const resLevel = getResearchedLevel('weapons', key);
@@ -317,6 +320,7 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
                     }
                     className="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-sm text-center"
                     testID="weapon-quantity-input"
+                    data-testid="weapon-quantity-input"
                   />
                 </div>
               </div>
@@ -384,10 +388,10 @@ const ShipDesignCalculator = ({ onClose, onSave, componentLevels, userResearch }
         </div>
 
         <div className="calculator-actions mt-6 pt-4 border-t border-gray-700 flex justify-end gap-3">
-          <button onClick={onClose} className="btn-secondary" testID="cancel-prototype-btn">
+          <button onClick={onClose} className="btn-secondary" testID="cancel-prototype-btn" data-testid="cancel-prototype-btn">
             Abbrechen
           </button>
-          <button onClick={handleSave} className="btn-primary" testID="save-prototype-btn">
+          <button onClick={handleSave} className="btn-primary" testID="save-prototype-btn" data-testid="save-prototype-btn">
             Prototyp speichern
           </button>
         </div>

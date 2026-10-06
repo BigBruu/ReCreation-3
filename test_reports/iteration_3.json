@@ -1,0 +1,41 @@
+{
+  "summary": "Backend regression passed 3/3. Public mobile preview loaded, TestUser1 login succeeded, Werft calculator opened, all requested component options were present, controlled quantities updated, and calculated stats rendered.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "LoginPage and game controls",
+        "issue": "Source testID props do not become data-testid attributes in the browser DOM. Required selectors such as player-username-input, open-calculator-btn and drive-type-select are absent; semantic/ID fallbacks were required for testing.",
+        "testID": "player-username-input, player-password-input, open-calculator-btn, drive-type-select",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_critical_flows.py",
+    "/app/test_reports/pytest/iteration_current.xml",
+    "/app/test_reports/ui/iteration_3"
+  ],
+  "action_items": [
+    "Expose stable browser data-testid attributes (or accessible labels) for the required login, calculator, shipyard, and spaceport controls.",
+    "Run a follow-up end-to-end registration-with-invite and Observatory-to-Spaceport autofill test; these were not executed in this iteration."
+  ],
+  "critical_code_review_comments": [
+    "Backend auth initialization and component validation are covered by the passing regression suite.",
+    "Referenced SpaceportTab and ShipyardTab contain controlled React state and no document.getElementById usage.",
+    "Calculator option catalogs and rendered formula outputs were verified against the requested component families."
+  ],
+  "updated_files": ["/app/test_reports/iteration_3.json"],
+  "success_rate": {"backend": "100%", "frontend": "90%"},
+  "seed_data_creation": "The existing regression test creates a single-use admin invite and TEST_formula design when the prototype slot permits; no new player was registered by this iteration.",
+  "retest_needed": true,
+  "should_call_test_agent_after_fix": true,
+  "context_for_next_testing_agent": "Use https://code-review-tool-44.preview.emergentagent.com and mobile viewport 375x667. Browser DOM omits React testID props; use #player-username-input/#player-password-input and semantic selectors until data-testid support is corrected.",
+  "rca_of_issue": "React DOM ignores the nonstandard testID prop used throughout these web-rendered components, so the requested data-testid selectors never exist. The controls function, but automation and accessibility stability are reduced."
+}

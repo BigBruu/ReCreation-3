@@ -5,7 +5,7 @@ from datetime import datetime
 import time
 
 class TheReCreationAPITester:
-    def __init__(self, base_url="https://spacewars.preview.emergentagent.com"):
+    def __init__(self, base_url="https://code-review-tool-44.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.token = None

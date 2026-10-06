@@ -38,14 +38,14 @@ async def _seed_test_user():
     else:
         user_id = existing["id"]
 
-    # Give Werft level 2 and Raumhafen level 2 so they can design prototypes and fleets
+    # Give Werft level 10 and Raumhafen level 10 so they can design prototypes and fleets
     await db.user_buildings.update_one(
         {"user_id": user_id, "buildings.building_type": "werft"},
-        {"$set": {"buildings.$.level": 2}},
+        {"$set": {"buildings.$.level": 10}},
     )
     await db.user_buildings.update_one(
         {"user_id": user_id, "buildings.building_type": "raumhafen"},
-        {"$set": {"buildings.$.level": 2}},
+        {"$set": {"buildings.$.level": 10}},
     )
     # Give starter research
     await db.user_research.update_one(

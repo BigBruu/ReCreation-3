@@ -55,7 +55,7 @@ const GameInterface = () => {
   const totalResource = (key) => game.userPlanets.reduce((sum, p) => sum + p.resources[key], 0);
 
   return (
-    <div className="game-layout starfield">
+    <div className="game-layout starfield" testID="game-screen" data-testid="game-screen">
       <div className="game-header authentic-header">
         <div className="header-left">
           <div className="game-info">

@@ -101,6 +101,7 @@ const GameInterface = () => {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`sidebar-tab ${activeTab === tab.id ? 'active' : ''}`}
+                testID={`tab-${tab.id}`}
               >
                 {tab.label}
               </button>

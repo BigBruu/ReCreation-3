@@ -1,0 +1,47 @@
+{
+  "summary": "Backend critical-flow regression passed; mobile UI login and calculator rendering passed, but calculator close is blocked by the success toast overlay.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "ShipDesignCalculator / login toast overlay",
+        "issue": "After successful login, the success toast overlays the calculator header and the close-calculator-btn click does not close the modal on mobile; the overlay consequently blocks navigation back to Raumhafen.",
+        "testID": "close-calculator-btn",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_critical_flows.py",
+    "/app/test_reports/pytest/iteration_4.xml",
+    "/app/test_reports/ui/iteration_4/calculator.png",
+    "/app/test_reports/ui/iteration_4/spaceport.png"
+  ],
+  "action_items": [
+    "Prevent the login success toast from intercepting calculator header controls, or dismiss/position the toast so close-calculator-btn remains tappable on mobile.",
+    "Retest calculator close and Raumhafen navigation after the overlay fix."
+  ],
+  "critical_code_review_comments": [
+    "Backend auth initialization and ship component validation are covered and passed.",
+    "Observed frontend source uses HTML div/input/select elements rather than React Native primitives; this is consistent with the running web app but should be confirmed against the intended Expo target."
+  ],
+  "updated_files": [
+    "/app/test_reports/iteration_4.json",
+    "/app/test_reports/pytest/iteration_4.xml"
+  ],
+  "success_rate": {
+    "backend": "100% (3/3)",
+    "frontend": "80% (login, Werft, calculator options/stats passed; close/navigation failed)"
+  },
+  "seed_data_creation": "Admin regression test created one invite code; ship design test may create TEST_formula if prototype capacity was available.",
+  "retest_needed": true,
+  "should_call_test_agent_after_fix": true,
+  "context_for_next_testing_agent": "Use TestUser1/password123. On mobile preview, successful-login toast is still visible over the calculator close control; verify whether dismissing the toast or waiting longer changes behavior.",
+  "rca_of_issue": "Reproduction: log in, open Werft, open calculator, click [data-testid=close-calculator-btn] within the post-login toast lifetime. The calculator remains visible and subsequent Raumhafen navigation cannot reach the underlying tab. The success toast is rendered above the modal header and appears to intercept the control; inspect toast z-index/pointer-events and modal layering."
+}

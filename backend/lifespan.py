@@ -104,6 +104,12 @@ async def _seed_test_user():
             stance="defensive",
         )
         await db.fleets.insert_one(new_fleet.dict())
+    else:
+        # Reset movement state so fleet is stationary and ready for coordinate inputs
+        await db.fleets.update_many(
+            {"user_id": user_id},
+            {"$set": {"movement_end_time": None, "movement_start_time": None, "target_position": None}}
+        )
 
     logger.info("Seeded TestUser1 with spaceport, buildings, research, prototype, and fleet")
 

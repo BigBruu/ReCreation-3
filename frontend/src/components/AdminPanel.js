@@ -170,6 +170,8 @@ const AdminPanel = () => {
                 className={`w-full text-left p-3 rounded transition-colors ${
                   activeTab === tab.id ? 'bg-red-600' : 'bg-gray-800 hover:bg-gray-700'
                 }`}
+                testID={`admin-tab-${tab.id}`}
+                data-testid={`admin-tab-${tab.id}`}
               >
                 <span className="mr-2">{tab.icon}</span>
                 {tab.label}

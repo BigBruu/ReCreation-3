@@ -259,11 +259,11 @@ const Observatory = ({
             </span>
           </div>
 
-          {/* Compact Zoom Controls */}
+          {/* Touch-friendly Zoom Controls */}
           <div className="flex items-center gap-1.5 bg-gray-800 px-2 py-1 rounded border border-gray-700 text-xs">
             <button
               onClick={() => setZoomLevel((prev) => Math.max(0.7, Math.round((prev - 0.1) * 10) / 10))}
-              className="bg-gray-700 hover:bg-gray-600 px-2 py-0.5 rounded text-white font-bold"
+              className="bg-gray-700 hover:bg-gray-600 px-3 py-1.5 min-h-[36px] min-w-[36px] rounded text-white font-bold flex items-center justify-center"
               testID="zoom-out-btn"
               data-testid="zoom-out-btn"
               title="Zoom verkleinern"
@@ -275,7 +275,7 @@ const Observatory = ({
             </span>
             <button
               onClick={() => setZoomLevel((prev) => Math.min(1.3, Math.round((prev + 0.1) * 10) / 10))}
-              className="bg-gray-700 hover:bg-gray-600 px-2 py-0.5 rounded text-white font-bold"
+              className="bg-gray-700 hover:bg-gray-600 px-3 py-1.5 min-h-[36px] min-w-[36px] rounded text-white font-bold flex items-center justify-center"
               testID="zoom-in-btn"
               data-testid="zoom-in-btn"
               title="Zoom vergrößern"
@@ -284,7 +284,7 @@ const Observatory = ({
             </button>
             <button
               onClick={() => setZoomLevel(1.0)}
-              className="bg-gray-700 hover:bg-gray-600 px-1.5 py-0.5 rounded text-gray-300"
+              className="bg-gray-700 hover:bg-gray-600 px-2.5 py-1.5 min-h-[36px] rounded text-gray-300"
               testID="zoom-reset-btn"
               data-testid="zoom-reset-btn"
             >
@@ -306,7 +306,7 @@ const Observatory = ({
                 }
               }}
               value=""
-              className="bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white text-xs max-w-36"
+              className="bg-gray-700 border border-gray-600 rounded px-2.5 py-1.5 min-h-[36px] text-white text-xs max-w-36"
               testID="jump-to-fleet-select"
               data-testid="jump-to-fleet-select"
             >
@@ -325,7 +325,7 @@ const Observatory = ({
                   if (onNavigateToSpaceport) onNavigateToSpaceport();
                 }
               }}
-              className="btn-secondary px-2 py-1 text-xs whitespace-nowrap"
+              className="btn-secondary px-3 py-1.5 min-h-[36px] text-xs whitespace-nowrap flex items-center justify-center"
               testID="jump-to-spaceport-btn"
               data-testid="jump-to-spaceport-btn"
             >
@@ -334,37 +334,39 @@ const Observatory = ({
           </div>
 
           {/* D-Pad Buttons */}
-          <div className="flex items-center gap-1 bg-gray-800 p-0.5 rounded border border-gray-700">
+          <div className="flex items-center gap-1 bg-gray-800 p-1 rounded border border-gray-700">
             <button
               onClick={() => shiftCoordinates(-1, 0)}
-              className="px-2 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-xs text-white"
+              className="px-3 py-1.5 min-h-[36px] min-w-[36px] bg-gray-700 hover:bg-gray-600 rounded text-xs text-white flex items-center justify-center font-bold"
               testID="pan-left-btn"
               data-testid="pan-left-btn"
               title="Nach links"
             >
               ◀
             </button>
-            <button
-              onClick={() => shiftCoordinates(0, -1)}
-              className="px-2 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-xs text-white"
-              testID="pan-up-btn"
-              data-testid="pan-up-btn"
-              title="Nach oben"
-            >
-              ▲
-            </button>
-            <button
-              onClick={() => shiftCoordinates(0, 1)}
-              className="px-2 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-xs text-white"
-              testID="pan-down-btn"
-              data-testid="pan-down-btn"
-              title="Nach unten"
-            >
-              ▼
-            </button>
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={() => shiftCoordinates(0, -1)}
+                className="px-3 py-1 min-h-[20px] min-w-[36px] bg-gray-700 hover:bg-gray-600 rounded text-xs text-white flex items-center justify-center font-bold"
+                testID="pan-up-btn"
+                data-testid="pan-up-btn"
+                title="Nach oben"
+              >
+                ▲
+              </button>
+              <button
+                onClick={() => shiftCoordinates(0, 1)}
+                className="px-3 py-1 min-h-[20px] min-w-[36px] bg-gray-700 hover:bg-gray-600 rounded text-xs text-white flex items-center justify-center font-bold"
+                testID="pan-down-btn"
+                data-testid="pan-down-btn"
+                title="Nach unten"
+              >
+                ▼
+              </button>
+            </div>
             <button
               onClick={() => shiftCoordinates(1, 0)}
-              className="px-2 py-0.5 bg-gray-700 hover:bg-gray-600 rounded text-xs text-white"
+              className="px-3 py-1.5 min-h-[36px] min-w-[36px] bg-gray-700 hover:bg-gray-600 rounded text-xs text-white flex items-center justify-center font-bold"
               testID="pan-right-btn"
               data-testid="pan-right-btn"
               title="Nach rechts"

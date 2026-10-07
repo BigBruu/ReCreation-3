@@ -223,8 +223,9 @@
 .obs-cell {
   position: relative;
   height: 78px;
+  min-height: 48px;
   cursor: pointer;
-  transition: background-color 120ms ease;
+  transition: background-color 120ms ease, height 150ms ease;
 }
 
 .obs-cell:hover {
@@ -675,18 +676,50 @@
 
 @media (max-width: 768px) {
   .authentic-header {
-    @apply flex-col space-y-2;
+    @apply p-2.5 flex-col space-y-1.5;
   }
   
   .game-main-layout {
-    @apply flex-col;
+    @apply flex-col h-auto min-h-screen;
   }
   
   .authentic-sidebar {
-    @apply w-full h-auto;
+    @apply w-full h-auto border-r-0 border-b-2 border-blue-500;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 4px;
+    padding: 6px;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebar-tab {
+    flex-shrink: 0;
+    width: auto;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 13px;
+  }
+
+  .sidebar-actions {
+    display: flex;
+    padding: 4px 6px;
   }
   
-  .obs-cell { height: 54px; }
+  .game-content {
+    padding: 8px;
+  }
+
+  .obs-starfield {
+    padding: 6px;
+  }
+
+  .obs-cell {
+    min-height: 44px;
+  }
 
   .calculator-content {
     @apply grid-cols-1;
